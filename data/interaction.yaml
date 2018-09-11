@@ -28,11 +28,16 @@ N2 + O2:
   Bzowski, eps/k: 108.8
   Bzowski, rho*: 0.0918
   Bzowski, V_0*: 179000
-  alpha_FHO: 4e-10
   VSS, dref: 3.604e-10
   VSS, omega: 0.703
   VSS, alpha: 1.43
   VSS, Tref: 273
+  N2,alpha_FHO: 3.9e-10
+  N2,E_FHO: 6
+  N2,SVT_FHO: 0.95
+  O2,alpha_FHO: 4.1e-10
+  O2,E_FHO: 150
+  O2,SVT_FHO: 0.3333333333
 N2 + O:
   phi_zero Born-Mayer: 1.378512716526e-16
   beta Born-Mayer: 33310000000
@@ -72,7 +77,9 @@ N2 + O:
   VSS, omega: 0.702
   VSS, alpha: 1.427
   VSS, Tref: 273
-  alpha_FHO: 4e-10 # add LC to run R_VT (wrong!)
+  N2,alpha_FHO: 7.3e-10
+  N2,E_FHO: 500
+  N2,SVT_FHO: 0.175
 O + O2+:
   beta Bruno: 7.35
   epsilon0 Bruno: 1.09532830605e-20
