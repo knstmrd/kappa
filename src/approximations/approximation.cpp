@@ -1929,9 +1929,9 @@ kappa::Approximation::Approximation() {}
  	                          	i, delta_i, 	
 					omega, 
 					molecule.mA_mAB, 
-					interaction["alpha_FHO"], 
-					interaction["E_FHO"], 
-					interaction["SVT_FHO"]);
+					interaction[molecule.name + ",alpha_FHO"], 
+					interaction[molecule.name + ",E_FHO"], 
+					interaction[molecule.name + ",SVT_FHO"]);
 
       if (molecule.rot_symmetry == 1) {
 
@@ -1942,9 +1942,9 @@ kappa::Approximation::Approximation() {}
                        				i, delta_i, 
 						omega, 	
 						molecule.mB_mAB, 
-						interaction["alpha_FHO"], 
-						interaction["E_FHO"], 
-						interaction["SVT_FHO"]));
+						interaction[molecule.name + ",alpha_FHO"], 
+						interaction[molecule.name + ",E_FHO"], 
+						interaction[molecule.name + ",SVT_FHO"]));
       }
       return res;
     } else {
@@ -2078,13 +2078,16 @@ kappa::Approximation::Approximation() {}
 
         double res = crosssection_VT_FHO_RS(rel_vel, interaction.collision_mass, interaction.collision_diameter, molecule.reduced_osc_mass,
                                           molecule.vibr_energy[e][i] - molecule.vibr_energy[e][i + delta_i],
-                                          i, delta_i, omega, molecule.mA_mAB, interaction["alpha_FHO"], interaction["E_FHO"], interaction["SVT_FHO"]);
+                                          i, delta_i, omega, molecule.mA_mAB,
+                                          interaction[molecule.name + ",alpha_FHO"], interaction[molecule.name + ",E_FHO"],
+                                          interaction[molecule.name + ",SVT_FHO"]);
 
 
         if (molecule.rot_symmetry == 1) {
           res = 0.5 * (res + crosssection_VT_FHO_RS(rel_vel, interaction.collision_mass, interaction.collision_diameter, molecule.reduced_osc_mass,
                        molecule.vibr_energy[e][i] - molecule.vibr_energy[e][i + delta_i],
-                       i, delta_i, omega, molecule.mB_mAB, interaction["alpha_FHO"], interaction["E_FHO"], interaction["SVT_FHO"]));
+                       i, delta_i, omega, molecule.mB_mAB, interaction[molecule.name + ",alpha_FHO"],
+                       interaction[molecule.name + ",E_FHO"], interaction[molecule.name + ",SVT_FHO"]));
         }
         return res;
         break;
@@ -2096,12 +2099,15 @@ kappa::Approximation::Approximation() {}
 
           double res = crosssection_VT_FHO_VSS(rel_vel, interaction.collision_mass, interaction.vss_c_cs, interaction.vss_omega, molecule.reduced_osc_mass,
                                                molecule.vibr_energy[e][i] - molecule.vibr_energy[e][i + delta_i],
-                                               i, delta_i, omega, molecule.mA_mAB, interaction["alpha_FHO"], interaction["E_FHO"], interaction["SVT_FHO"]);
+                                               i, delta_i, omega, molecule.mA_mAB,
+                                               interaction[molecule.name + ",alpha_FHO"],
+                                               interaction[molecule.name + ",E_FHO"], interaction[molecule.name + ",SVT_FHO"]);
 
           if (molecule.rot_symmetry == 1) {
             res = 0.5 * (res + crosssection_VT_FHO_VSS(rel_vel, interaction.collision_mass, interaction.vss_c_cs, interaction.vss_omega, molecule.reduced_osc_mass,
                   molecule.vibr_energy[e][i] - molecule.vibr_energy[e][i + delta_i],
-                  i, delta_i, omega, molecule.mB_mAB, interaction["alpha_FHO"], interaction["E_FHO"], interaction["SVT_FHO"]));
+                  i, delta_i, omega, molecule.mB_mAB, interaction[molecule.name + ",alpha_FHO"],
+                  interaction[molecule.name + ",E_FHO"], interaction[molecule.name + ",SVT_FHO"]));
           }
           return res;
         } else {
@@ -2891,14 +2897,18 @@ kappa::Approximation::Approximation() {}
         double omega = abs(molecule.vibr_energy[e][i] - molecule.vibr_energy[e][i + delta_i]) / (K_CONST_HBAR * abs(delta_i));
         double res = integral_VT_FHO_RS(T, degree, interaction.collision_mass, interaction.collision_diameter, molecule.reduced_osc_mass,
                                         molecule.vibr_energy[e][i] - molecule.vibr_energy[e][i + delta_i],
-                                        i, delta_i, omega, molecule.mA_mAB, interaction["alpha_FHO"], interaction["E_FHO"], interaction["SVT_FHO"]);
+                                        i, delta_i, omega, molecule.mA_mAB,
+                                        interaction[molecule.name + ",alpha_FHO"], interaction[molecule.name + ",E_FHO"],
+                                        interaction[molecule.name + ",SVT_FHO"]);
 
         if (molecule.rot_symmetry == 2) {
           return res;
         } else {
           return 0.5 * (res + integral_VT_FHO_RS(T, degree, interaction.collision_mass, interaction.collision_diameter, molecule.reduced_osc_mass,
                         molecule.vibr_energy[e][i] - molecule.vibr_energy[e][i + delta_i],
-                        i, delta_i, omega, molecule.mB_mAB, interaction["alpha_FHO"], interaction["E_FHO"], interaction["SVT_FHO"]));
+                        i, delta_i, omega, molecule.mB_mAB,
+                        interaction[molecule.name + ",alpha_FHO"],
+                        interaction[molecule.name + ",E_FHO"], interaction[molecule.name + ",SVT_FHO"]));
         }
         break;
       }
@@ -2909,14 +2919,16 @@ kappa::Approximation::Approximation() {}
           double omega = abs(molecule.vibr_energy[e][i] - molecule.vibr_energy[e][i + delta_i]) / (K_CONST_HBAR * abs(delta_i));
           double res = integral_VT_FHO_VSS(T, degree, interaction.collision_mass, interaction.vss_c_cs, interaction.vss_omega, molecule.reduced_osc_mass,
           				 molecule.vibr_energy[e][i] - molecule.vibr_energy[e][i + delta_i],
-          				 i, delta_i, omega, molecule.mA_mAB, interaction["alpha_FHO"], interaction["E_FHO"], interaction["SVT_FHO"]);
+          				 i, delta_i, omega, molecule.mA_mAB, interaction[molecule.name + ",alpha_FHO"],
+                   interaction[molecule.name + ",E_FHO"], interaction[molecule.name + ",SVT_FHO"]);
 
           if (molecule.rot_symmetry == 2) {
             return res;
           } else {
             return 0.5 * (res + integral_VT_FHO_VSS(T, degree, interaction.collision_mass, interaction.vss_c_cs, interaction.vss_omega, molecule.reduced_osc_mass,
                           molecule.vibr_energy[e][i] - molecule.vibr_energy[e][i + delta_i],
-                          i, delta_i, omega, molecule.mA_mAB, interaction["alpha_FHO"], interaction["E_FHO"], interaction["SVT_FHO"]));
+                          i, delta_i, omega, molecule.mA_mAB, interaction[molecule.name + ",alpha_FHO"],
+                          interaction[molecule.name + ",E_FHO"], interaction[molecule.name + ",SVT_FHO"]));
           }
           break;
         } else {
@@ -2984,26 +2996,31 @@ kappa::Approximation::Approximation() {}
           double omega = -(molecule.vibr_energy[e][i] - molecule.vibr_energy[e][i + delta_i]) / (K_CONST_HBAR * delta_i);
           double res = k_VT_FHO_RS(T, interaction.collision_mass, interaction.collision_diameter, molecule.reduced_osc_mass,
                                    molecule.vibr_energy[e][i] - molecule.vibr_energy[e][i + delta_i],
-                                   i, delta_i, omega, molecule.mA_mAB, interaction["alpha_FHO"], interaction["E_FHO"], interaction["SVT_FHO"]);
+                                   i, delta_i, omega, molecule.mA_mAB,
+                                   interaction[molecule.name + ",alpha_FHO"], interaction[molecule.name + ",E_FHO"],
+                                   interaction[molecule.name + ",SVT_FHO"]);
 
           if (molecule.rot_symmetry == 2) {
             return res;
           } else {
             return 0.5 * (res + k_VT_FHO_RS(T, interaction.collision_mass, interaction.collision_diameter, molecule.reduced_osc_mass,
                    molecule.vibr_energy[e][i] - molecule.vibr_energy[e][i + delta_i],
-                   i, delta_i, omega, molecule.mB_mAB, interaction["alpha_FHO"], interaction["E_FHO"], interaction["SVT_FHO"]));
+                   i, delta_i, omega, molecule.mB_mAB, interaction[molecule.name + ",alpha_FHO"], interaction[molecule.name + ",E_FHO"],
+                   interaction[molecule.name + ",SVT_FHO"]));
           }
         } else { // compute the reverse coefficient (i->i-delta_i) and multiply by the factor obtained from detailed balance
 
           double omega = (molecule.vibr_energy[e][i + delta_i] - molecule.vibr_energy[e][i]) / (K_CONST_HBAR * delta_i);
           double res = k_VT_FHO_RS(T, interaction.collision_mass, interaction.collision_diameter, molecule.reduced_osc_mass,
                                    molecule.vibr_energy[e][i + delta_i] - molecule.vibr_energy[e][i],
-                                   i + delta_i, -delta_i, omega, molecule.mA_mAB, interaction["alpha_FHO"], interaction["E_FHO"], interaction["SVT_FHO"]);
+                                   i + delta_i, -delta_i, omega, molecule.mA_mAB, interaction[molecule.name + ",alpha_FHO"],
+                                   interaction[molecule.name + ",E_FHO"], interaction[molecule.name + ",SVT_FHO"]);
 
           if (molecule.rot_symmetry == 1) {
             res = 0.5 * (res + k_VT_FHO_RS(T, interaction.collision_mass, interaction.collision_diameter, molecule.reduced_osc_mass,
                   molecule.vibr_energy[e][i + delta_i] - molecule.vibr_energy[e][i],
-                  i + delta_i, -delta_i, omega, molecule.mB_mAB, interaction["alpha_FHO"], interaction["E_FHO"], interaction["SVT_FHO"]));
+                  i + delta_i, -delta_i, omega, molecule.mB_mAB, interaction[molecule.name + ",alpha_FHO"],
+                  interaction[molecule.name + ",E_FHO"], interaction[molecule.name + ",SVT_FHO"]));
           }
           return res * k_bf_VT(T, molecule, i + delta_i, -delta_i, e);
         }
@@ -3022,26 +3039,30 @@ kappa::Approximation::Approximation() {}
           double omega = -(molecule.vibr_energy[e][i] - molecule.vibr_energy[e][i + delta_i]) / (K_CONST_HBAR * delta_i);
           double res = k_VT_FHO_VSS(T, interaction.collision_mass, interaction.vss_c_cs, interaction.vss_omega, molecule.reduced_osc_mass,
                                     molecule.vibr_energy[e][i] - molecule.vibr_energy[e][i + delta_i],
-                                    i, delta_i, omega, molecule.mA_mAB, interaction["alpha_FHO"], interaction["E_FHO"], interaction["SVT_FHO"]);
+                                    i, delta_i, omega, molecule.mA_mAB, interaction[molecule.name + ",alpha_FHO"],
+                                    interaction[molecule.name + ",E_FHO"], interaction[molecule.name + ",SVT_FHO"]);
 
           if (molecule.rot_symmetry == 2) {
             return res;
           } else {
             return 0.5 * (res + k_VT_FHO_VSS(T, interaction.collision_mass, interaction.vss_c_cs, interaction.vss_omega, molecule.reduced_osc_mass,
                           molecule.vibr_energy[e][i] - molecule.vibr_energy[e][i + delta_i],
-                          i, delta_i, omega, molecule.mB_mAB, interaction["alpha_FHO"], interaction["E_FHO"], interaction["SVT_FHO"]));
+                          i, delta_i, omega, molecule.mB_mAB, interaction[molecule.name + ",alpha_FHO"],
+                          interaction[molecule.name + ",E_FHO"], interaction[molecule.name + ",SVT_FHO"]));
           }
         } else {
 
           double omega = (molecule.vibr_energy[e][i + delta_i] - molecule.vibr_energy[e][i]) / (K_CONST_HBAR * delta_i);
           double res = k_VT_FHO_VSS(T, interaction.collision_mass, interaction.vss_c_cs, interaction.vss_omega, molecule.reduced_osc_mass,
                                     molecule.vibr_energy[e][i + delta_i] - molecule.vibr_energy[e][i],
-                                    i + delta_i, -delta_i, omega, molecule.mA_mAB, interaction["alpha_FHO"], interaction["E_FHO"], interaction["SVT_FHO"]);
+                                    i + delta_i, -delta_i, omega, molecule.mA_mAB, interaction[molecule.name + ",alpha_FHO"],
+                                    interaction[molecule.name + ",E_FHO"], interaction[molecule.name + ",SVT_FHO"]);
 
           if (molecule.rot_symmetry == 1) {
             res = 0.5 * (res + k_VT_FHO_VSS(T, interaction.collision_mass, interaction.vss_c_cs, interaction.vss_omega, molecule.reduced_osc_mass,
                          molecule.vibr_energy[e][i + delta_i] - molecule.vibr_energy[e][i],
-                         i + delta_i, -delta_i, omega, molecule.mB_mAB, interaction["alpha_FHO"], interaction["E_FHO"], interaction["SVT_FHO"]));
+                         i + delta_i, -delta_i, omega, molecule.mB_mAB,
+                         interaction[molecule.name + ",alpha_FHO"], interaction[molecule.name + ",E_FHO"], interaction[molecule.name + ",SVT_FHO"]));
           }
           return res * k_bf_VT(T, molecule, i + delta_i, -delta_i, e);
         }
