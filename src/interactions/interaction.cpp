@@ -10,7 +10,7 @@
 
 #include "exceptions.hpp"
 #include "interaction.hpp"
-#include "yaml.h"
+#include "yaml-cpp/yaml.h"
 
 using namespace std;
 using namespace kappa;
@@ -64,8 +64,8 @@ Interaction::Interaction(const Particle &Particle1, const Particle &Particle2, c
 
     if (vss_data) {
       double gref = sqrt(2 * K_CONST_K * vss_Tref / collision_mass);
-      vss_c_d = vss_dref * pow(gref, vss_omega - 0.5);
-      vss_c_cs = K_CONST_PI * vss_dref * vss_dref * pow(gref, 2 * vss_omega - 1);
+      vss_c_d = vss_dref * pow(gref, vss_omega - 0.5) / sqrt(tgamma(2.5 - vss_omega));
+      vss_c_cs = K_CONST_PI * vss_dref * vss_dref * pow(gref, 2 * vss_omega - 1) / tgamma(2.5 - vss_omega);
     }
 } // Interaction
 
@@ -74,6 +74,7 @@ Interaction::Interaction(const Particle &Particle1, const Particle &Particle2, c
 void Interaction::readData(const string &name, const string &filename) {
 
   YAML::Node file;
+
   std::vector<double> tmp; 
 
   try {file = YAML::LoadFile(filename);} 
