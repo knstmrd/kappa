@@ -61,13 +61,13 @@ class Particle {
   std::string particleType;
 
   //! Stoichiometry of the species
-  std::vector<std::pair<std::string,int>> stoichiometry;
+  std::vector<std::pair<std::string,int> > stoichiometry;
 
   int atomic_number = 0;
   double atomic_weight = 0.0;
 
   //! Pair vector to store all atomic element in the database file (particles.yaml)
-  std::vector<std::pair<std::string,double>> element_list;
+  std::vector<std::pair<std::string,double> > element_list;
 
  private:
 
