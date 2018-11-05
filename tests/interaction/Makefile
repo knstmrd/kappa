@@ -2,7 +2,7 @@
  KAPPA_DIR=../..
  KAPPA_INSTALL=../../install
 
- CXX       = g++ -O3 -pg -lm -std=c++11 -fopenmp
+ CXX       = g++ -O3 -pg -lm -std=c++11
  
  CXX_FLAGS = 	-I $(KAPPA_INSTALL)/include/kappa++ 				\
 		-I $(KAPPA_DIR)/kappa_deps/x86_64/include		 	\
@@ -20,7 +20,8 @@ EXAMPLES  = \
 	k_diss_ILTtest			\
 	k_dissTest			\
         vss_and_neutral_e		\
-	test_FHO
+	test_FHO \
+	test_FHO_2
 
 all : $(EXAMPLES)
 
@@ -46,6 +47,9 @@ vss_and_neutral_e : vss_and_neutral_e.o
 	$(CXX) -o $@ $(CXX_FLAGS) $^ $(CXX_LIBS)
 
 test_FHO : test_FHO.o
+	$(CXX) -o $@ $(CXX_FLAGS) $^ $(CXX_LIBS)
+
+test_FHO_2 : test_FHO_2.o
 	$(CXX) -o $@ $(CXX_FLAGS) $^ $(CXX_LIBS)
 
 %.o : %.cpp
