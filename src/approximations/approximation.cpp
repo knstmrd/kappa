@@ -332,7 +332,7 @@ kappa::Approximation::Approximation() {}
       ns = kappa::factorial_table[i] / kappa::factorial_table[i + delta_i];
     }
 
-    double phi = (2. / K_CONST_PI) * atan(sqrt((2. * E_FHO) / (coll_mass * avg_vel * avg_vel)));
+    double phi = (2. / K_CONST_PI) * atan(sqrt((2. * E_FHO * K_CONST_K) / (coll_mass * avg_vel * avg_vel)));
     double eps = (cosh((1. + phi) * K_CONST_PI * omega / (alpha_FHO * avg_vel)));
     eps *= K_CONST_PI * ram * coll_mass / (sinh(2. * K_CONST_PI * omega / (alpha_FHO * avg_vel)) * alpha_FHO);
     eps = eps * eps;
